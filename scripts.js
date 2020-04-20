@@ -1,0 +1,82 @@
+// minha forma
+let forma = document.querySelector(".forma");
+
+// inputs ...
+let tl = document.querySelector(".tl-input");
+let tr = document.querySelector(".tr-input");
+let bl = document.querySelector(".bl-input");
+let br = document.querySelector(".br-input");
+
+// text area...
+let code = document.querySelector(".code");
+
+// regex que filtra teclas [0-9]
+const myRegex = /[0-9]/;
+
+// função altera border radius
+let changeRadius = function (classeInput) {
+  if (classeInput === "tl-input") {
+    forma.style.borderTopLeftRadius = tl.value + "px";
+  } else if (classeInput === "tr-input") {
+    forma.style.borderTopRightRadius = tr.value + "px";
+  } else if (classeInput === "bl-input") {
+    forma.style.borderBottomLeftRadius = bl.value + "px";
+  } else if (classeInput === "br-input") {
+    forma.style.borderBottomRightRadius = br.value + "px";
+  }
+};
+
+// função que escreve o valor do input no text area
+const writeText = (event) => {
+  setTimeout(() => {
+    code.value = event.target.value;
+    const classeInput = event.target.classList[0];
+    changeRadius(classeInput);
+  }, 500);
+};
+
+// função pra verificar tecla digitada
+const keyObserver = function (event) {
+  console.log("disparou");
+
+  const tecla = event.key;
+  const verifica = myRegex.exec(tecla); // verifica se tecla é numero
+
+  if (!verifica) {
+    let text = event.target.value;
+    if (text !== "") {
+      text = text.substring(0, text.length - 1);
+    } else {
+      text = "0";
+    }
+    event.target.value = text;
+  }
+  if (event.target.value.charAt(0) === "0" && event.target.value.length > 1) {
+    event.target.value = event.target.value.substring(
+      1,
+      event.target.value.length
+    );
+  }
+};
+
+function debounce(func, wait) {
+  let timer = null;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(func, wait);
+  };
+}
+
+tr.addEventListener("keyup", keyObserver);
+tl.addEventListener("keyup", keyObserver);
+bl.addEventListener("keyup", keyObserver);
+br.addEventListener("keyup", keyObserver);
+
+tl.addEventListener("input", writeText);
+tr.addEventListener("input", writeText);
+bl.addEventListener("input", writeText);
+br.addEventListener("input", writeText);
+// style.borderBottomLeftRadius
+// style.borderBottomRigtRadius
+// style.borderTopLeftRadius
+// style.borderTopRightRadius
