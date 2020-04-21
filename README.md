@@ -16,5 +16,5 @@
       </li>
     </ol>
 <h2>Preview do projeto '-'</h2>  
-<img src="./assets/preview_demo.jpg">
+
 <p>Cores do layout inspiradas na <a link="http://heartdevs.com/">He4rtdevs <3</a></p>
