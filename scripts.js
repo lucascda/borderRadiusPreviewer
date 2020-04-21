@@ -25,20 +25,44 @@ let changeRadius = function (classeInput) {
     forma.style.borderBottomRightRadius = br.value + "px";
   }
 };
+const changeTextArea = () => {
+  let classTextArray = [
+    "border-top-left-radius: ",
+    "border-top-right-radius: ",
+    "border-bottom-left-radius: ",
+    "border-bottom-right-radius: ",
+  ];
+  let texto;
+
+  code.value = "";
+  texto = ""; // texto a ser inserido
+
+  if (tl.value !== "" || tl.value !== 0) {
+    texto = classTextArray[0] + tl.value + " px;\n";
+  }
+  if (tr.value !== "" || tr.value !== 0) {
+    texto = texto + classTextArray[1] + tr.value + " px;\n";
+  }
+  if (bl.value !== "" || bl.value !== 0) {
+    texto = texto + classTextArray[2] + bl.value + " px;\n";
+  }
+  if (br.value !== "" || br.value !== 0) {
+    texto = texto + classTextArray[3] + br.value + " px;\n";
+  }
+  code.value = texto;
+};
 
 // função que escreve o valor do input no text area
 const writeText = (event) => {
   setTimeout(() => {
-    code.value = event.target.value;
     const classeInput = event.target.classList[0];
-    changeRadius(classeInput);
-  }, 500);
+    changeRadius(classeInput); // muda o border radius
+  }, 200);
+  setTimeout(changeTextArea, 200);
 };
 
 // função pra verificar tecla digitada
 const keyObserver = function (event) {
-  console.log("disparou");
-
   const tecla = event.key;
   const verifica = myRegex.exec(tecla); // verifica se tecla é numero
 
@@ -76,7 +100,3 @@ tl.addEventListener("input", writeText);
 tr.addEventListener("input", writeText);
 bl.addEventListener("input", writeText);
 br.addEventListener("input", writeText);
-// style.borderBottomLeftRadius
-// style.borderBottomRigtRadius
-// style.borderTopLeftRadius
-// style.borderTopRightRadius
